@@ -352,9 +352,69 @@ AI大爆发 / 公链新技术 / 政策驱动 / 需求爆发
 
 ---
 
+## 进阶功能
+
+### 1. 信号追踪与演化更新
+
+吸收 [Awesome-finance-skills](https://github.com/RKiding/Awesome-finance-skills) 的信号追踪理念，支持对已发布投资信号的持续跟踪更新：
+
+**工作流程：**
+1. **初始分析**：使用 Serenity 框架生成初始投资信号，记录信号逻辑和置信度
+2. **跟踪更新**：获取最新新闻/价格/资金数据，与原逻辑比对
+3. **状态判定**：根据新信息更新信号状态：
+   - **Strengthened 强化**：新信息验证原逻辑，资金流入，价格上涨 → 提升置信度
+   - **Weakened 弱化**：部分假设不成立，资金流出，价格下跌 → 降低置信度
+   - **Falsified 证伪**：核心逻辑被打破（如技术突破、新产能上线）→ 信号失效
+   - **Unchanged 不变**：无重大新信息 → 维持原有判断
+
+**使用方式：**
+```
+"跟踪 [标的] 信号更新，最新变化是..."
+```
+
+### 2. 新闻情绪分析
+
+对新闻/研报文本进行情绪评分，辅助判断市场态度：
+
+**评分范围：** `-1.0`（极度看空）~ `+1.0`（极度看多）
+
+**分类标准：**
+| 区间 | 标签 | 典型场景 |
+|------|------|----------|
+| +0.1 ~ +1.0 | Positive 看多 | 业绩超预期、政策支持、订单暴增 |
+| -0.1 ~ +0.1 | Neutral 中性 | 事实性报道、价格横盘、影响不明 |
+| -1.0 ~ -0.1 | Negative 看空 | 业绩亏损、监管处罚、价格暴跌 |
+
+分析后可将情绪评分整合到信号追踪中，作为状态更新的依据。
+
+### 3. 供应链传导链路可视化
+
+使用逻辑可视化方法，将抽象的供应链传导链转换为直观图表：
+
+**输出格式：** Draw.io XML 兼容格式，可直接导入 Draw.io / Diagrams.net 查看编辑。
+
+**典型传导链结构：**
+```
+需求爆发 → 产能瓶颈 → 价格上涨 → 业绩弹性 → 股价反应
+```
+
+生成后可渲染为 HTML 供用户直接查看。
+
+### 4. 专业研报结构化生成
+
+吸收渐进式写作流程：
+1. **聚类信号**：将收集到的信息按主题分组
+2. **逐段撰写**：每个模块独立分析，保证深度
+3. **汇总组装**：整合各模块，统一风格和结论
+4. **最终校验**：检查逻辑一致性和风险提示
+
+这保证了长报告的逻辑清晰，不会遗漏关键环节。
+
+---
+
 ## 策略化配置
 
-本技能借鉴了 [daily_stock_analysis](https://github.com/ZhuLinsen/daily_stock_analysis) 的 YAML 策略化设计，支持**自然语言策略文件**，无需修改代码即可扩展新的技术分析策略。
+本技能借鉴了 [daily_stock-analysis](https://github.com/ZhuLinsen/daily_stock_analysis) 和 [Awesome-finance-skills](https://github.com/RKiding/Awesome-finance-skills) 的模块化可插拔设计，支持**自然语言策略文件**，无需修改代码即可扩展新的技术分析策略。
 
 ### 内置策略
 
@@ -382,7 +442,7 @@ instructions: |
   你的策略描述，用自然语言写出判断标准、入场条件、出场条件...
 ```
 
-详细规范参考 [daily_stock_analysis 策略文档](https://github.com/ZhuLinsen/daily_stock_analysis/tree/main/strategies)。
+详细规范参考 [daily_stock_analysis 策略文档](https://github.com/ZhuLinsen/daily_stock_analysis/tree/main/strategies).
 
 ## 触发词
 
