@@ -352,6 +352,38 @@ AI大爆发 / 公链新技术 / 政策驱动 / 需求爆发
 
 ---
 
+## 策略化配置
+
+本技能借鉴了 [daily_stock_analysis](https://github.com/ZhuLinsen/daily_stock_analysis) 的 YAML 策略化设计，支持**自然语言策略文件**，无需修改代码即可扩展新的技术分析策略。
+
+### 内置策略
+
+| 策略文件 | 名称 | 类型 | 说明 |
+|----------|------|------|------|
+| `strategies/serenity_chokepoint.yaml` | Serenity 供应链瓶颈框架 | framework | 核心六步瓶颈分析，本技能基础 |
+| `strategies/tao_boshi_momentum.yaml` | 陶博士动量体系 | framework | 月线反转+口袋支点技术面买点检查 |
+
+### 如何添加自定义策略
+
+创建 `strategies/my_strategy.yaml`，用 YAML + 自然语言描述即可：
+
+```yaml
+name: my_strategy
+display_name: 我的策略
+description: 简短描述策略用途
+category: trend  # trend/pattern/reversal/framework
+core_rules: [1, 2]
+required_tools:
+  - get_daily_history
+  - analyze_trend
+aliases: [我的战法]
+default_active: true
+instructions: |
+  你的策略描述，用自然语言写出判断标准、入场条件、出场条件...
+```
+
+详细规范参考 [daily_stock_analysis 策略文档](https://github.com/ZhuLinsen/daily_stock_analysis/tree/main/strategies)。
+
 ## 触发词
 
 - `用 serenity 分析 [板块]`
@@ -360,3 +392,4 @@ AI大爆发 / 公链新技术 / 政策驱动 / 需求爆发
 - `用瓶颈框架分析 [产业链]`
 - `serenity 分析 链上 [赛道]`
 - `找 [AI公链] 基础设施瓶颈`
+- `用 serenity 分析 [标的] 看年线反转口袋支点`（自动组合 Serenity + 陶博士策略）
